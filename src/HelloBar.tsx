@@ -19,8 +19,6 @@ export function HelloBar() {
     if(day > 25 && month === 11) {
         xmasDate.setFullYear( currentYear + 1 )
     }
-    console.log(day)
-    console.log(month)
 
     const timeDiff = xmasDate.getTime() - currentDate.getTime()
     const remainingDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
