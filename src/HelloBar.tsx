@@ -8,28 +8,33 @@ import Pinterest from "./modules/Pinterest";
  * Barra preta superior com mensagem de boas-vindas e ícones de redes sociais.
  * @returns Hello Bar component
  */
-export function HelloBar() {
 
-    const currentDate = new Date()
-    console.log(currentDate)
-    const currentYear = currentDate.getFullYear()
+export function getChristmasMessage (date = new Date()) : string {
+
+    const currentYear = date.getFullYear()
     const xmasDate = new Date( currentYear, 11, 25)
-    const day = currentDate.getDate()
-    const month = currentDate.getMonth()
+    const day = date.getDate()
+    const month = date.getMonth()
     if(day > 25 && month === 11) {
         xmasDate.setFullYear( currentYear + 1 )
     }
 
-    const timeDiff = xmasDate.getTime() - currentDate.getTime()
+    const timeDiff = xmasDate.getTime() - date.getTime()
     const remainingDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
-    let xmasMessage = ""
+    
     if(remainingDays > 1) {
-        xmasMessage = `faltam ${remainingDays} dias para o Natal`
+        return `faltam ${remainingDays} dias para o Natal`
     } else if(remainingDays === 1) {
-        xmasMessage = "falta 1 dia para o Natal!"
+        return "falta 1 dia para o Natal!"
     } else {
-        xmasMessage = "Feliz Natal"
+        return "Feliz Natal"
     }
+
+
+}
+
+export function HelloBar() {
+
 
   return (
     <div className="hidden md:block sticky top-0 z-50 w-full bg-red-900 py-2 md:py-2.5 shadow-sm ">
@@ -41,7 +46,8 @@ export function HelloBar() {
             SEJA BEM-VINDO AO SITE OFICIAL BRASFOOT 
           </span>
           <span className="text-yellow-200 font-bold px-10 text-sm md:text-sm uppercase ">
-                 {xmasMessage} 
+              {getChristmasMessage()}
+                 
             </span>
         </div>
 
