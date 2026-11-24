@@ -11,24 +11,26 @@ import Pinterest from "./modules/Pinterest";
 
 export function getChristmasMessage (date = new Date()) : string {
 
-    const currentYear = date.getFullYear()
-    const xmasDate = new Date( currentYear, 11, 25)
-    const day = date.getDate()
-    const month = date.getMonth()
-    if(day > 25 && month === 11) {
-        xmasDate.setFullYear( currentYear + 1 )
-    }
+    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate())
+    console.log(today)
+    let xmas = new Date( today.getFullYear(), 11, 25)
 
-    const timeDiff = xmasDate.getTime() - date.getTime()
-    const remainingDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
+    if(today > xmas) {
+      xmas = new Date(today.getFullYear() + 1, 11, 25)
+    }  
+
+    const msPerDay = 86_400_000; // 24 horas em milessegundos
+
+
+    const remainingDays = Math.round((xmas.getTime() - today.getTime()) / msPerDay)
+    console.log(remainingDays)
     
-    if(remainingDays > 1) {
-        return `faltam ${remainingDays} dias para o Natal`
-    } else if(remainingDays === 1) {
-        return "falta 1 dia para o Natal!"
-    } else {
-        return "Feliz Natal"
-    }
+    if (remainingDays > 1 ) {
+      return `Faltam ${remainingDays} dias para o Natal`;
+    } if (remainingDays === 1) {
+      return "Falta 1 dia para o Natal"
+    };
+    return "Feliz Natal!"
 
 
 }
